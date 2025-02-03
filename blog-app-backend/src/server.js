@@ -7,7 +7,7 @@ app.get('/hello', (req, res) => {
     res.send(`Hello ${req.body.name}!`);
 })
 
-app.get('/hello/:name/goodbye/:otherName', (req,res) => {
+app.get('/hello/:name', (req,res) => {
     console.log(req.params);
     const { name } = req.params;
     res.send(`Hello ${name}!!`);
