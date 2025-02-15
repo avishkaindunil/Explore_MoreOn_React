@@ -4,13 +4,21 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 function App() {
-  const [status, setStatus] = useState("Not Deleivered");
+
+  const[checked, setChecked] = useState(false);
   return(
     <div>
-      <h1>The package is: {status}</h1>
-      <button onClick={() => setStatus("Delivered")}>Deliver</button>
+      <input type='checkbox' value={checked} onChange={() => setChecked((checked) => !checked)} />
+      <p>{checked ? "Checked" : "Not checked"}</p>
     </div>
   )
+  // const [status, setStatus] = useState("Not Deleivered");
+  // return(
+  //   <div>
+  //     <h1>The package is: {status}</h1>
+  //     <button onClick={() => setStatus("Delivered")}>Deliver</button>
+  //   </div>
+  // )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,7 +28,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
