@@ -5,11 +5,19 @@ import reportWebVitals from './reportWebVitals';
 import { FaStar } from "react-icons/fa";
 
 function App() {
-  const [number, setNumber] = useReducer((number, newNumber) => number + newNumber, 0)
+  const [checked, toggle] = useReducer(
+    (checked) => !checked,
+    false
+  );
+
   return (
     <>
-      <h1 onClick={() => setNumber(1)}>{number}</h1>
-      <button onClick={() => setNumber([])}>Reset</button>
+      <input 
+        type='checkbox'
+        value={checked}
+        onChange={toggle}
+      />
+      {checked ? "Checked" : 'Not Checked'}
     </>
   )
 }
