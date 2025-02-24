@@ -1,39 +1,28 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer, useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { FaStar } from "react-icons/fa";
 
-const initialState = {
-  message: "Hi"
-};
-
-function reducer(state, action) {
-  switch(action.type) {
-    case "yell":
-    return {
-      message: `Hey! I just said ${state.message}`
-    };
-
-    case "whisper":
-      return {
-        message: `Excuse me, I just said ${state.message}`
-      };
-  }
-}
-
 function App() {
-  const [state, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const sound = useRef();
+  const color = useRef();
+
+  const submit = (e) => {
+    e.preventDefault();
+    const soundVal = sound.current.value;
+    const colorVal = color.current.value;
+    alert(`${soundVal} sounds like ${colorVal}`);
+    sound.current.value = "";
+    color.current.value = "";
+  };
 
   return (
-    <>
-      <p>Message: {state.message}</p>
-      <button onClick={() => dispatch({ type: "yell"})}>Yell</button>
-      <button onClick={() => dispatch({ type: "whisper"})}>Whisper</button>
-    </>
+    <form onSubmit={submit}>
+      <input ref={sound} type='text' placeholder='Sound...'/>
+      <input ref={color} type='color'/>
+      <button>ADD</button>
+    </form>
   )
 }
 
