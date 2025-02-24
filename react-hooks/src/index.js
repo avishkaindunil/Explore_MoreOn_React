@@ -3,30 +3,29 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { FaStar } from "react-icons/fa";
+import { useInput } from "./useInput";
 
 function App() {
-  const [sound, setSound] = useState("");
-  const [color, setColor] = useState("#000000");
+  const [titleProps, resetTitle] = useInput("");
+  const [colorProps, resetColor] = useInput("#000000");
 
   const submit = (e) => {
     e.preventDefault();
-    alert(`${sound} sounds like ${color}`);
-    setSound("");
-    setColor("#000000");
+    alert(`${titleProps.value} sounds like ${colorProps.value}`);
+    resetTitle();
+    resetColor();
   };
 
   return (
     <form onSubmit={submit}>
       <input 
-        value={sound} 
+        {...titleProps} 
         type='text' 
         placeholder='Sound...'
-        onChange={(e) => setSound(e.target.value)}
       />
       <input 
-        value={color} 
+        {...colorProps}
         type='color'
-        onChange={(e) => setColor(e.target.value)}
       />
       <button>ADD</button>
     </form>
