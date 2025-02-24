@@ -1,28 +1,36 @@
-import React, { useReducer, useState, useEffect, useRef, createContext, useContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { FaStar } from "react-icons/fa";
-import { useInput } from "./useInput";
-import App from "./App"
+import { useFetch } from "./useFetch";
 
-const TreesContext = createContext();
-
-export const useTrees = () => 
-  useContext(TreesContext);
-
-const trees = [
-  { id: "1", type: "Maple" },
-  { id: "2", type: "Oak" },
-  { id: "3", type: "Family" },
-  { id: "4", type: "Component" }
-]
+function App({ login }) {
+  const { loading, data, error } = useFetch(
+    `https://api.github.com/users/${login}`
+  );
+  if (loading) return <h1>loading...</h1>;
+  if (error) 
+    return (
+      <pre>{JSON.stringify(error, null, 2)}</pre>
+    );
+  return (
+    <div>
+      <div>
+      <img src={data.avatar_url} alt={data.login} />
+        <h1>{data.login}</h1>
+        {data.name && <p>{data.name}</p>}
+        {data.location && <p>{data.location}</p>}
+      </div>
+      <br />
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+      
+    </div>
+  );
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <TreesContext.Provider value={{ trees }}>
-    <App /> 
-  </TreesContext.Provider>
+    <App login="eveporcello"/> 
 );
 
 reportWebVitals();
